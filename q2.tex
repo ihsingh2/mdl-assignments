@@ -1,0 +1,62 @@
+\documentclass[a4paper, 12pt]{article}
+\usepackage[margin=1.25in]{geometry}
+\usepackage{bookmark}
+
+\usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\allowdisplaybreaks
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+
+\usepackage{graphicx}
+\usepackage{float}
+
+\usepackage{multirow}
+\usepackage{tabularx}
+\newcolumntype{L}{>{\centering\arraybackslash}X}
+
+\renewcommand{\baselinestretch}{1.15}
+\setlength{\parindent}{0pt}
+
+\title{CS7.301: Assignment 3: Question 2}
+\author{Himanshu Singh}
+\date{\today}
+
+\begin{document}
+
+\section*{Question 2}
+
+Without loss of generality, we assume that the $n$ independent tosses are numbered 1 to $n$. Consider the outcome of first toss, denoted by $X_1$. If the first toss comes up heads, the total number of heads is even iff the number of heads in the remaining $n - 1$ tosses is odd. Likewise, if the first toss comes up tails, the total number of heads is even iff the number of heads in the remaining $n - 1$ tosses is even. Applying the law of total probability, we can write
+\begin{align*}
+P(\text{even \#heads in n tosses}) &= P(\text{odd \#heads in rem. n - 1 tosses} \mid{} X_1 = H) \cdot P(X_1 = H) \\
+& + P(\text{even \#heads in rem. n - 1 tosses} \mid{} X_1 = T) \cdot P(X_1 = T)
+\intertext{Using the independence of remaining $n - 1$ tosses from the first toss, we get}
+P(\text{even \#heads in n tosses}) &= P(\text{odd \#heads in rem. n - 1 tosses}) \cdot P(X_1 = H) \\
+& + P(\text{even \#heads in rem. n - 1 tosses}) \cdot P(X_1 = T)
+\end{align*}
+
+Rewriting this in terms of the given notation, we get
+\begin{align*}
+q_n &= (1 - q_{n-1}) p + q_{n-1}(1 - p) \\
+\intertext{Applying some simplifications, we arrive at the recurrence relation}
+&= (1 - 2p) q_{n-1} + p \\
+&= (1 - 2p) q_{n-1} + (-2p) \left(\frac{-1}{2}\right) - \frac{1}{2} + \frac{1}{2} \\
+&= (1 - 2p) q_{n-1} + (1 - 2p) \left(\frac{-1}{2}\right) + \frac{1}{2} \\
+q_n - \frac{1}{2} &= (1 - 2p) \left(q_{n-1} - \frac{1}{2}\right) \numberthis \label{eqn-rec} \\
+\intertext{We will show by induction that}
+q_n - \frac{1}{2} &= (1 - 2p)^i \left(q_{n-i} - \frac{1}{2}\right) \numberthis \label{eqn-ind} \\
+\intertext{We know from \eqref{eqn-rec}, this holds for $i = 1$. Assuming it holds for some $i > 1$, we will show that it holds for $i + 1$. By assumption,}
+q_n - \frac{1}{2} &= (1 - 2p)^i \left(q_{n-i} - \frac{1}{2}\right) \\
+\intertext{Using \eqref{eqn-rec} for $(q_{n-i} - \frac{1}{2})$, we get}
+&= (1 - 2p)^{i+1} \left(q_{n-i-1} - \frac{1}{2}\right) \\
+\intertext{This resembles the exact form as \eqref{eqn-ind} for $i + 1$, completing the proof by induction. Substituting $i = n$ in \eqref{eqn-ind}, we get}
+q_n - \frac{1}{2} &= (1 - 2p)^n \left(q_0 - \frac{1}{2}\right) \\
+\intertext{It is trivial to see that the number of heads when no coin is tossed is zero, which is even. Thus, $q_0 = 1$.}
+q_n &= \frac{1}{2} + (1 - 2p)^n \left(1 - \frac{1}{2}\right) \\
+q_n &= \frac{1 + (1 - 2p)^n}{2}
+\end{align*}
+
+\qed
+
+\end{document}

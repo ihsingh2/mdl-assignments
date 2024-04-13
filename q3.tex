@@ -1,0 +1,73 @@
+\documentclass[a4paper, 12pt]{article}
+\usepackage[margin=1.25in]{geometry}
+\usepackage{bookmark}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{nccmath}
+\allowdisplaybreaks
+
+\usepackage{graphicx}
+\usepackage{float}
+
+\usepackage{multirow}
+\usepackage{tabularx}
+\newcolumntype{L}{>{\centering\arraybackslash}X}
+
+\renewcommand{\baselinestretch}{1.15}
+\setlength{\parindent}{0pt}
+
+\title{CS7.301: Assignment 3: Question 3}
+\author{Himanshu Singh}
+\date{\today}
+
+\begin{document}
+
+\section*{Question 2}
+
+\subsection*{Part A: Flight to Oklahoma}
+
+Since the plane is built to be able to fly on one engine, the only way it can fail to complete a four-hour flight is if no engine were working, or equivalently both the engines failed in the given flight. This condition is both necessary and sufficient.
+
+\begin{equation}
+P(\text{plane fails to complete the flight}) = P(\text{engine 1 fails} \cap \text{engine 2 fails})
+\end{equation}
+
+Since the two engines operate independently, their failures (an event in their operation cycle) too are independent of each other. Thus, we get
+
+\begin{equation}
+P(\text{plane fails to complete the flight}) = P(\text{engine 1 fails}) \cdot P(\text{engine 2 fails})
+\end{equation}
+
+Substituting $P(\text{engine 1 fails}) = P(\text{engine 2 fails}) = \dfrac{1}{100}$, we get
+
+\begin{equation}
+P(\text{plane fails to complete the flight}) = \dfrac{1}{10000} = 0.01\%
+\end{equation}
+
+\subsection*{Part B: Birthday Paradox}
+
+\begin{fleqn}[\parindent]
+\begin{equation}
+\begin{split}
+& P(\text{atleast two people have same birthday}) \\
+&= 1 - P(\text{no two people have the same birthday}) \\
+&= 1 - P(\text{all 30 people have distinct birthday}) \\
+\end{split}
+\end{equation}
+\end{fleqn}
+
+Since the birthdays are uniformly distributed over 365 days,
+
+\begin{fleqn}[\parindent]
+\begin{equation}
+\begin{split}
+&= 1 - \frac{\text{\#permutations of distinct 30 birthdays}}{\text{\#permutations of 30 birthdays}} \\
+&= 1 - \frac{\cfrac{365!}{(365-30)!}}{365^{30}} \\
+&\approx 1 - 0.294 \\
+&= 0.706
+\end{split}
+\end{equation}
+\end{fleqn}
+
+\end{document}
